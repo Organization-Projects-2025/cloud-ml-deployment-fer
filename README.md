@@ -87,9 +87,4 @@ kubectl get hpa fer-ddamfn -o yaml > k8s/hpa.yaml
 
 ---
 
-## Notes (public repo)
-- Do NOT commit secrets (.env, tokens, keys).
-- Large model weights can be excluded using .gitignore if needed.
-- Ensure the image tag in Kubernetes matches the one pushed to Docker Hub.
 
----
