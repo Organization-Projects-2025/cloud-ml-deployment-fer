@@ -1,0 +1,11 @@
+--index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://pypi.org/simple
+
+fastapi==0.104.1
+uvicorn==0.24.0
+python-multipart==0.0.20
+torch==2.0.1+cpu
+torchvision==0.15.2+cpu
+opencv-python-headless==4.8.1.78
+pillow==10.0.0
+numpy==1.24.3

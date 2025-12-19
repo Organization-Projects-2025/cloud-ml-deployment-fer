@@ -1,0 +1,47 @@
+# Python
+_pycache_/
+*.py[cod]
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtualenvs
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Secrets / env files
+.env
+.env.*
+*.pem
+*.key
+
+# Data / artifacts
+*.tmp
+*.cache
+
+# ML artifacts (ignore large weights by default)
+*.pth
+*.pt
+*.onnx
+
+# Local video/test files (optional)
+*.mp4
+*.avi
+*.mov
+*.mkv
