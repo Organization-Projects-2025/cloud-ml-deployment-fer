@@ -1,4 +1,6 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
 import torch
 import torch.nn.functional as F
 import cv2
@@ -11,20 +13,30 @@ from pathlib import Path
 import tempfile
 import os
 
-
-BASE_DIR = Path(__file__).resolve().parent
-sys.path.insert(0, str(BASE_DIR / "model"))  
+BASE_DIR = Path(_file_).resolve().parent
+sys.path.insert(0, str(BASE_DIR / "model"))
 from ddam_networks.DDAM import DDAMNet
 
+
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+# -----------------------
+
 
 FER7 = ["Neutral", "Happy", "Sad", "Surprise", "Fear", "Disgust", "Angry"]
 INPUT_SIZE = 112
 NORMALIZE_MEAN = [0.485, 0.456, 0.406]
 NORMALIZE_STD = [0.229, 0.224, 0.225]
 
-
-device = torch.device("cpu")  
+device = torch.device("cpu")
 
 model = None
 face_cascade = None
@@ -32,7 +44,7 @@ transform = None
 
 
 class EmotionSmoother:
-    def __init__(self, window_size=10):
+    def _init_(self, window_size=10):
         self.window_size = window_size
         self.history = deque(maxlen=window_size)
 
@@ -59,8 +71,7 @@ def make_inference_transform(image_size=112):
 def load_ddamfn_model(model_path, device):
     net = DDAMNet(num_class=7, num_head=2, pretrained=False)
 
-    
-    checkpoint = torch.load(model_path, map_location=device)  
+    checkpoint = torch.load(model_path, map_location=device)
 
     if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
         state_dict = checkpoint["model_state_dict"]
@@ -197,6 +208,6 @@ async def predict_video(file: UploadFile = File(...)):
             os.remove(tmp_path)
 
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     import uvicorn
     uvicorn.run("app:app", host="0.0.0.0", port=8000)
